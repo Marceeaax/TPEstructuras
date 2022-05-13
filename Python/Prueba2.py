@@ -16,12 +16,6 @@ listaTopics = dict()
 reposexaminados = 0
 reposactualizados = 0
 
-print("\t\t\t***ESTRUCTURAS DE LOS LENGUAJES***")
-print("\t\t\t***Extracción de datos de una página web***")
-print("Tema 2")
-
-print("El lenguaje elegido es Java\n")
-
 URL = "https://github.com/topics/java?o=desc&s=updated&page="
 
 for i in range(cargarPaginas):
@@ -41,7 +35,7 @@ tiempoutc = datetime.datetime.strptime(tiempoutcauxiliar, "%Y-%m-%d%H:%M:%S")
 
 # por cada pagina
 for i in range(cargarPaginas):
-    #print("-------PAGINA " + str(i+1) + " ---------")
+    print("-------PAGINA " + str(i+1) + " ---------")
     # extraer todos los div que tienen los topicos
     div = soups[i].findAll("div",{"class":"color-bg-default rounded-bottom-2"})
         
@@ -61,7 +55,7 @@ for i in range(cargarPaginas):
 
 
     for j in range(len(div)):
-        #print("-------REPOSITORIO " + str(j+1) + " ---------")
+        print("-------REPOSITORIO " + str(j+1) + " ---------")
         litags = div[j].parent.findAll("li")
 
         if(litags[1].find("a").get("aria-current") != 'true'):
@@ -108,7 +102,7 @@ for j in listaTopics:
 	print("vez") if listaTopics[j] == 1 else print("veces")
 
 print("Numero de repos examinados: ", reposexaminados)
-print("Numero de repos que cumplen con la condicion de tiempo: ", reposactualizados)
+print("Numero de repos que cumplen con la condicion: ", reposactualizados)
 
 titulos = ['TOPIC','NRO_APARICIONES']
 topics = list(listaTopics.keys())
@@ -125,26 +119,19 @@ with open('ResultadosTema2.csv','w', newline = '') as f:
 topicsgrafico = topics[:20]
 aparicionesgrafico = apariciones[:20]
 
-#print({'TOPIC': topicsgrafico, 'NRO_APARICIONES': aparicionesgrafico})
+print({'TOPIC': topicsgrafico, 'NRO_APARICIONES': aparicionesgrafico})
 
 listaTopicsDF = {'TOPIC': topicsgrafico, 'NRO_APARICIONES': aparicionesgrafico}
 
 df=pd.DataFrame(listaTopicsDF)
 
-fig,ax = plt.subplots(figsize=(20,6))
+fig,ax = plt.subplots(figsize=(9,6))
 
-fig.patch.set_facecolor('black')
+sns.barplot(x='TOPIC',y='NRO_APARICIONES',data=df,ci=95,ax=ax)
 
-sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=True, as_cmap=True)
+ax.set_title("Topics asociados de los repositorios actualizados en los ultimos 30 dias")
 
-csfont = {'fontname':'Source Code Pro'}
-
-sns.barplot(x='TOPIC',y='NRO_APARICIONES',data=df,ci=95,palette="crest",ax=ax,color='white')
-
-ax.set_title("TEMA 2\nTopics asociados de los repositorios actualizados en los últimos 30 días",**csfont,color='white')
-
-ax.tick_params(axis='y',labelsize=16,length=0,colors='gray')
-ax.tick_params(axis='x',labelsize=8,length=0,pad=2,colors='grey')
+ax.tick_params(labelsize=16,length=0)
 
 # method 1
 ax.spines['left'].set_visible(False)
@@ -154,14 +141,18 @@ ax.spines["bottom"].set_visible(False)
 #method 2
 plt.box(False)
 
+sns.color_palette("flare", as_cmap=True)
+
 # add grid lines for y axis
-ax.yaxis.grid(linewidth=0.5,color='gray')
+ax.yaxis.grid(linewidth=0.5,color='black')
 # put the grid lines below bars
 ax.set_axisbelow(True)
 
-ax.set_xlabel('TOPIC',labelpad=-5,weight='bold',size=10,**csfont,c='grey')
-ax.set_ylabel('NRO_APARICIONES',labelpad=15,weight='bold',size=15,**csfont,c='grey')
+ax.set_xlabel('TOPIC',weight='bold',size=15)
+ax.set_ylabel('NRO_APARICIONES',weight='bold',size=15)
 
 plt.xticks(rotation=30,color='#565656')
 
 plt.show()
+
+

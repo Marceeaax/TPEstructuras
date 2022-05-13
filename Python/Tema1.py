@@ -1,4 +1,5 @@
 import numpy as np
+import seaborn as sns
 import time
 import csv
 import re
@@ -168,7 +169,7 @@ for i in range(len(lenguajes)):
 insercion(repositorios,lenguajes,[])
 
 fig, ax = plt.subplots(figsize =(16, 9))
- 
+
 # Horizontal Bar Plot
 ax.barh(lenguajes, repositorios)
 
@@ -202,6 +203,8 @@ for i in ax.patches:
 ax.set_title('Numero de repositorios de los 20 lenguajes de programacion mas populares',
              loc ='left', )
 
+# mejorar grafico con esta pagina
+# https://medium.com/analytics-vidhya/draw-a-unique-barplot-using-matplotlib-in-python-f6b88b4a6f89
 plt.xlabel("NRO_REPOSITORIOS")
 plt.ylabel("NOMBRE_LENGUAJE",labelpad = 0)
 plt.show()

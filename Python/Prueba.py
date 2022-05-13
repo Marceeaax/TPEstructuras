@@ -1,28 +1,13 @@
-import numpy as np
 import requests
-import csv
-import matplotlib.pyplot as plt
 import time
-
-def insercion(arr1,arr2,arr3):
- 
-    # Ordenamiento por insercion, que suele ser eficaz con vectores no muy grandes
-    # Extraido de geeksforgeeks
-    for i in range(1, len(arr1)):
- 
-        key1 = arr1[i]
-        if(len(arr2) > 0): key2 = arr2[i]
-        if(len(arr3) > 0): key3 = arr3[i]
-
-        j = i-1
-        while j >= 0 and key1 > arr1[j] :
-                arr1[j + 1] = arr1[j]
-                if(len(arr2) > 0): arr2[j + 1] = arr2[j]
-                if(len(arr3) > 0): arr3[j + 1] = arr3[j]
-                j -= 1
-        arr1[j + 1] = key1
-        if(len(arr2) > 0): arr2[j + 1] = key2
-        if(len(arr3) > 0): arr3[j + 1] = key3
+import csv
+from datetime import datetime
+import datetime
+from bs4 import BeautifulSoup
+import seaborn as sns
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
 lenguajes = ['Python', 'C', 'Java', 'C++', 'C#', 'Visual Basic', 'JavaScript', 'Assembly language', 'SQL', 'PHP', 'R', 'Delphi/Object Pascal', 'Go', 'Swift', 'Ruby', 'Classic Visual Basic', 'Objective-C', 'Perl', 'Lua', 'MATLAB']
@@ -31,14 +16,42 @@ rating = [89.97497178191097, 14.287677283211464, 53.532250413047386, 14.76403134
 
 titulos = ['NOMBRE_LENGUAJE','NUMERO_APARICIONES']
 
-for i in range(100):
-    github = requests.get("https://github.com/topics/MATLAB?o=desc&s=updated",timeout=20)
-    if(github.status_code > 300):
-        print("Se produjo el error: ", github.status_code)
-        print("Se deben esperar: ", github.headers['Retry-After'])
-        print("Durmiendo por 70 segundos")
-        time.sleep(70)
-    else:
-        print("Exito!")
+listaTopics = {'TOPIC': ['java', 'spring-boot', 'spring', 'python', 'javascript', 'android', 'mysql', 'kotlin', 'leetcode', 'sql', 'maven', 'cpp', 'minecraft', 'hacktoberfest', 'algorithms', 'database', 'docker', 'data-structures', 'springboot', 'algorithm'], 'NRO_APARICIONES': [944, 92, 73, 71, 66, 53, 52, 45, 43, 41, 38, 36, 36, 34, 31, 26, 26, 24, 24, 23]}
 
+df=pd.DataFrame(listaTopics)
+
+fig,ax = plt.subplots(figsize=(20,6))
+
+fig.patch.set_facecolor('black')
+
+sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=True, as_cmap=True)
+
+csfont = {'fontname':'Source Code Pro'}
+
+sns.barplot(x='TOPIC',y='NRO_APARICIONES',data=df,ci=95,palette="crest",ax=ax,color='white')
+
+ax.set_title("TEMA 2\nTopics asociados de los repositorios actualizados en los últimos 30 días",**csfont,color='white')
+
+ax.tick_params(axis='y',labelsize=16,length=0,colors='gray')
+ax.tick_params(axis='x',labelsize=8,length=0,pad=2,colors='grey')
+
+# method 1
+ax.spines['left'].set_visible(False)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["bottom"].set_visible(False)
+#method 2
+plt.box(False)
+
+# add grid lines for y axis
+ax.yaxis.grid(linewidth=0.5,color='gray')
+# put the grid lines below bars
+ax.set_axisbelow(True)
+
+ax.set_xlabel('TOPIC',labelpad=-5,weight='bold',size=10,**csfont,c='grey')
+ax.set_ylabel('NRO_APARICIONES',labelpad=15,weight='bold',size=15,**csfont,c='grey')
+
+plt.xticks(rotation=30,color='#565656')
+
+plt.show()
 
