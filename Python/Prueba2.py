@@ -125,13 +125,20 @@ listaTopicsDF = {'TOPIC': topicsgrafico, 'NRO_APARICIONES': aparicionesgrafico}
 
 df=pd.DataFrame(listaTopicsDF)
 
-fig,ax = plt.subplots(figsize=(9,6))
+fig,ax = plt.subplots(figsize=(20,6))
 
-sns.barplot(x='TOPIC',y='NRO_APARICIONES',data=df,ci=95,ax=ax)
+fig.patch.set_facecolor('black')
 
-ax.set_title("Topics asociados de los repositorios actualizados en los ultimos 30 dias")
+sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=True, as_cmap=True)
 
-ax.tick_params(labelsize=16,length=0)
+csfont = {'fontname':'Source Code Pro'}
+
+sns.barplot(x='TOPIC',y='NRO_APARICIONES',data=df,ci=95,palette="crest",ax=ax,color='white')
+
+ax.set_title("TEMA 2\nTopics asociados de los repositorios actualizados en los últimos 30 días",**csfont,color='white')
+
+ax.tick_params(axis='y',labelsize=16,length=0,colors='gray')
+ax.tick_params(axis='x',labelsize=8,length=0,pad=2,colors='grey')
 
 # method 1
 ax.spines['left'].set_visible(False)
@@ -141,15 +148,13 @@ ax.spines["bottom"].set_visible(False)
 #method 2
 plt.box(False)
 
-sns.color_palette("flare", as_cmap=True)
-
 # add grid lines for y axis
-ax.yaxis.grid(linewidth=0.5,color='black')
+ax.yaxis.grid(linewidth=0.5,color='gray')
 # put the grid lines below bars
 ax.set_axisbelow(True)
 
-ax.set_xlabel('TOPIC',weight='bold',size=15)
-ax.set_ylabel('NRO_APARICIONES',weight='bold',size=15)
+ax.set_xlabel('TOPIC',labelpad=-5,weight='bold',size=10,**csfont,c='grey')
+ax.set_ylabel('NRO_APARICIONES',labelpad=15,weight='bold',size=15,**csfont,c='grey')
 
 plt.xticks(rotation=30,color='#565656')
 

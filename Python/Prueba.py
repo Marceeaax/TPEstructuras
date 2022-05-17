@@ -18,19 +18,19 @@ titulos = ['NOMBRE_LENGUAJE','NUMERO_APARICIONES']
 
 listaTopics = {'TOPIC': ['java', 'spring-boot', 'spring', 'python', 'javascript', 'android', 'mysql', 'kotlin', 'leetcode', 'sql', 'maven', 'cpp', 'minecraft', 'hacktoberfest', 'algorithms', 'database', 'docker', 'data-structures', 'springboot', 'algorithm'], 'NRO_APARICIONES': [944, 92, 73, 71, 66, 53, 52, 45, 43, 41, 38, 36, 36, 34, 31, 26, 26, 24, 24, 23]}
 
-df=pd.DataFrame(listaTopics)
+listaLenguajes = {'LENGUAJES': lenguajes, 'REPOSITORIOS': repositorios}
+
+df=pd.DataFrame(listaLenguajes)
 
 fig,ax = plt.subplots(figsize=(20,6))
 
 fig.patch.set_facecolor('black')
 
-sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=True, as_cmap=True)
-
 csfont = {'fontname':'Source Code Pro'}
 
-sns.barplot(x='TOPIC',y='NRO_APARICIONES',data=df,ci=95,palette="crest",ax=ax,color='white')
+sns.barplot(x='LENGUAJES',y='REPOSITORIOS',data=df,ci=1000,palette="crest",ax=ax,color='white')
 
-ax.set_title("TEMA 2\nTopics asociados de los repositorios actualizados en los últimos 30 días",**csfont,color='white')
+ax.set_title("TEMA 1\nTopics asociados de los repositorios actualizados en los últimos 30 días",**csfont,color='white')
 
 ax.tick_params(axis='y',labelsize=16,length=0,colors='gray')
 ax.tick_params(axis='x',labelsize=8,length=0,pad=2,colors='grey')
@@ -54,4 +54,3 @@ ax.set_ylabel('NRO_APARICIONES',labelpad=15,weight='bold',size=15,**csfont,c='gr
 plt.xticks(rotation=30,color='#565656')
 
 plt.show()
-
