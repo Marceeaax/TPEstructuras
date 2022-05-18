@@ -200,6 +200,7 @@ for i in ax.patches:
              color ='grey')
 
 # Add Plot Title
+# HAY QUE MOSTRAR SOLO LOS 10 !!!!!!!!
 ax.set_title('Numero de repositorios de los 20 lenguajes de programacion mas populares',
              loc ='left', )
 
