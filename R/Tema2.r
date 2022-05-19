@@ -102,9 +102,7 @@ listapantalla <- data.frame(TOPIC = unlist(listaordenada[2]),
                  NUMERO_APARICIONES = unlist(listaordenada[1])
                  )
 
-par(mar=c(3, 15, 3, 10))
-
-jpeg('Tema2grafico.svg')
+jpeg('Tema2grafico.jpg')
 
 barplot(names.arg=rev(head(unlist(listaordenada[2]),20)),rev(head(unlist(listaordenada[1]),20)),beside = FALSE, horiz = FALSE, angle = 45,col="darkblue",density=100, main="20 palabras con mayor numero de apariciones",border="black",las=2)
 

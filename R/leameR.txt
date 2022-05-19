@@ -1,0 +1,9 @@
+Instalar las siguientes librerias:
+
+install.packages("rvest")
+install.packages("scriptName")
+install.packages("hash")
+install.packages("lubridate")
+install.packages("dplyr")
+
+Es preferible correr el programa en RStudio para obtener graficos de mayor tamaño.

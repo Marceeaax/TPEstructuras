@@ -140,12 +140,14 @@ tablapantalla <- data.frame(NOMBRE_LENGUAJE = unlist(listapantalla[3]),
 
 listagrafico <- insercion(unlist(repositorios),unlist(lenguajes))
 
-par(mar=c(3, 15, 3, 10))
+jpeg('Tema1grafico.jpg')
 
 barplot(names.arg=(unlist(listagrafico[2])),(unlist(listagrafico[1])),beside = FALSE, horiz = FALSE, angle = 45,col="darkred",density=100, main="Numero de repositorios por lenguaje",border="black",las=2)
 
 ubicacion = gsub("/","\\",ubicacion)
 
 print(paste0("Se ha guardado un PDF con la grafica y un CSV con los resultados en: ",substring(current_filename(),1,punto-1)))
+
+dev.off()
 
 tablapantalla
