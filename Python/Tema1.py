@@ -5,6 +5,7 @@ import csv
 import re
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 import matplotlib.pyplot as plt
 
 
@@ -96,8 +97,8 @@ for i in range(len(lenguajes)):
     while(github.status_code >= 400):
         print("Se produjo el error: ", github.status_code)
         print("Se deben esperar: ", github.headers['Retry-After'])
-        print("Durmiendo por 70 segundos")
-        time.sleep(70)
+        print("Durmiendo por 10 segundos")
+        time.sleep(10)
         github = requests.get(URL2 + traduccion(lenguajes[i]))
 
     print(github)
@@ -168,46 +169,44 @@ for i in range(len(lenguajes)):
 
 insercion(repositorios,lenguajes,[])
 
-fig, ax = plt.subplots(figsize =(16, 9))
+lenguajesgrafico = lenguajes[:10]
+repositoriosgrafico = repositorios[:10]
 
-# Horizontal Bar Plot
-ax.barh(lenguajes, repositorios)
+listaTopicsDF = {'NOMBRE_LENGUAJE': lenguajesgrafico, 'NRO_APARICIONES': repositoriosgrafico}
 
-for s in ['top', 'bottom', 'left', 'right']:
-    ax.spines[s].set_visible(False)
- 
-# Remove x, y Ticks
-ax.xaxis.set_ticks_position('none')
-ax.yaxis.set_ticks_position('none')
- 
-# Add padding between axes and labels
-ax.xaxis.set_tick_params(pad = 5)
+df=pd.DataFrame(listaTopicsDF)
 
+fig,ax = plt.subplots(figsize=(20,6))
 
-# Add x, y gridlines
-ax.grid(visible = True, color ='grey',
-        linestyle ='-.', linewidth = 0.5,
-        alpha = 0.2)
- 
-# Show top values
-ax.invert_yaxis()
- 
-# Add annotation to bars
-for i in ax.patches:
-    plt.text(i.get_width()+0.2, i.get_y()+0.5,
-             str(round((i.get_width()), 2)),
-             fontsize = 10, fontweight ='bold',
-             color ='grey')
+fig.patch.set_facecolor('black')
 
-# Add Plot Title
-# HAY QUE MOSTRAR SOLO LOS 10 !!!!!!!!
-ax.set_title('Numero de repositorios de los 20 lenguajes de programacion mas populares',
-             loc ='left', )
+sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=True, as_cmap=True)
 
-# mejorar grafico con esta pagina
-# https://medium.com/analytics-vidhya/draw-a-unique-barplot-using-matplotlib-in-python-f6b88b4a6f89
-plt.xlabel("NRO_REPOSITORIOS")
-plt.ylabel("NOMBRE_LENGUAJE",labelpad = 0)
+csfont = {'fontname':'Source Code Pro'}
+
+sns.barplot(x='NOMBRE_LENGUAJE',y='NRO_APARICIONES',data=df,ci=95,palette="crest",ax=ax,color='white')
+
+ax.set_title("TEMA 1\nNumero de repositorios por lenguaje",**csfont,color='white')
+
+ax.tick_params(axis='y',labelsize=16,length=0,colors='gray')
+ax.tick_params(axis='x',labelsize=8,length=0,pad=2,colors='grey')
+
+# method 1
+ax.spines['left'].set_visible(False)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["bottom"].set_visible(False)
+#method 2
+plt.box(False)
+
+# add grid lines for y axis
+ax.yaxis.grid(linewidth=0.5,color='gray')
+# put the grid lines below bars
+ax.set_axisbelow(True)
+
+ax.set_xlabel('NOMBRE_LENGUAJE',labelpad=-5,weight='bold',size=10,**csfont,c='grey')
+ax.set_ylabel('NRO_APARICIONES',labelpad=15,weight='bold',size=15,**csfont,c='grey')
+
+plt.xticks(rotation=30,color='#565656')
+
 plt.show()
-
-

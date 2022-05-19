@@ -35,7 +35,7 @@ horas30dias<- ymd_hms("2022-01-31 00:00:00") - ymd_hms("2022-01-01 00:00:00")
 #iterar todas las paginas
 for (page_result in seq(from = 1, to = 2, by = 1)) {
   
-  link<-paste0("https://github.com/topics/angular?page=",page_result)
+  link<-paste0("https://github.com/topics/java?page=",page_result)
   page<- read_html(link)
   #trae los topics sin tener en cuenta las fechas
   #topic<- page %>% html_nodes(".f6.mb-2") %>% html_text()
@@ -97,11 +97,16 @@ write.csv(df,paste0(ubicacion,"ResultadosTema2.csv"), row.names = FALSE)
 
 listaordenada = insercion(values(topicos),keys(topicos))
 
-#par(mar=c(3, 15, 3, 10))
 
-jpeg('Tema2grafico.jpg')
+listapantalla <- data.frame(TOPIC = unlist(listaordenada[2]),
+                 NUMERO_APARICIONES = unlist(listaordenada[1])
+                 )
 
-barplot(rev(head(unlist(listaordenada[1]),20)),names.arg=rev(head(unlist(listaordenada[2]),20)),beside = FALSE, horiz = TRUE, angle = 45,col="darkblue",density=100, main="20 palabras con mayor numero de apariciones",border="black",las=1)
+par(mar=c(3, 15, 3, 10))
+
+jpeg('Tema2grafico.svg')
+
+barplot(names.arg=rev(head(unlist(listaordenada[2]),20)),rev(head(unlist(listaordenada[1]),20)),beside = FALSE, horiz = FALSE, angle = 45,col="darkblue",density=100, main="20 palabras con mayor numero de apariciones",border="black",las=2)
 
 ubicacion = gsub("/","\\",ubicacion)
 
@@ -109,5 +114,5 @@ print(paste0("Se ha guardado un PDF con la grafica y un CSV con los resultados e
 
 dev.off()
 
-topicos
+listapantalla[2]
 

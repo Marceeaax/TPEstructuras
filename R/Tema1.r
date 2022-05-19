@@ -72,6 +72,7 @@ for(i in 1:length(lenguajes)){
 	# Specifying expression
 	expr = {                     
 		github <- read_html(paste0("https://github.com/topics/",traductor(toString(lenguajes[i]))))
+		Sys.sleep(2)
 		print("Pagina procesada con exito.")
 	},
 	# Specifying error message
@@ -82,7 +83,6 @@ for(i in 1:length(lenguajes)){
 	error = function(e){         
 		print("Hubo un error al procesar la pagina. El sistema esperara unos cuantos segundos")
 		Sys.sleep(7)
-		close(github)
 		closeAllConnections()
 		#gc()
 		}
@@ -142,8 +142,10 @@ listagrafico <- insercion(unlist(repositorios),unlist(lenguajes))
 
 par(mar=c(3, 15, 3, 10))
 
-barplot(rev(unlist(listagrafico[1])),names.arg=rev(unlist(listagrafico[2])),beside = FALSE, horiz = TRUE, angle = 45,col="darkred",density=100, main="Numero de repositorios por lenguaje",border="black",las=1)
+barplot(names.arg=(unlist(listagrafico[2])),(unlist(listagrafico[1])),beside = FALSE, horiz = FALSE, angle = 45,col="darkred",density=100, main="Numero de repositorios por lenguaje",border="black",las=2)
 
 ubicacion = gsub("/","\\",ubicacion)
 
 print(paste0("Se ha guardado un PDF con la grafica y un CSV con los resultados en: ",substring(current_filename(),1,punto-1)))
+
+tablapantalla

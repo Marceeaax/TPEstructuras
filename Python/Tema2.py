@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Puede elegir un numero entre 1 a 34 paginas para examinar, la pagina 35 no existe para ningun topic
-cargarPaginas = 34
+cargarPaginas = 10
 soups = []
 listaTopics = dict()
 reposexaminados = 0
@@ -30,8 +30,8 @@ for i in range(cargarPaginas):
     while(pagina.status_code >= 400):
         print("Se produjo el error: ", pagina.status_code)
         print("Se deben esperar: ", pagina.headers['Retry-After'])
-        print("Durmiendo por 70 segundos")
-        time.sleep(70)
+        print("Durmiendo por 10 segundos")
+        time.sleep(10)
         pagina = requests.get("https://github.com/topics/java?o=desc&s=updated&page=" + str(i))
     soups.append(BeautifulSoup(pagina.content,'html5lib'))
 

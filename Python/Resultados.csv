@@ -1,21 +1,21 @@
 NOMBRE_LENGUAJE,NUMERO_APARICIONES
-Python,278464
-C,44091
-Java,165356
-C++,45603
-C#,47103
-Visual Basic,899
-JavaScript,310491
+Python,278623
+C,44115
+Java,165443
+C++,45634
+C#,47125
+Visual Basic,898
+JavaScript,310692
 Assembly language,4792
-SQL,24450
-PHP,89972
-Delphi/Object Pascal,1904
-Swift,34017
-R,26344
-Go,41906
+SQL,24459
+PHP,89996
+Delphi/Object Pascal,1911
+Swift,34029
+R,26357
+Go,41928
 Classic Visual Basic,68
-Objective-C,5461
-Perl,3844
-Lua,9655
-Ruby,28328
-MATLAB,9739
+Objective-C,5462
+Perl,3845
+Lua,9658
+Ruby,28338
+MATLAB,9746
