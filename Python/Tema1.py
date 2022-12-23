@@ -1,5 +1,3 @@
-import numpy as np
-import seaborn as sns
 import time
 import csv
 import re
